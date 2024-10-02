@@ -9,14 +9,14 @@ int move_count = 0;
 
 // Função para ler o tabuleiro do usuário
 void read_user_board(int board[N]) {
-    char line[N + 1];  // Para armazenar a linha do tabuleiro
+    char line[N + 1];
     for (int i = 0; i < N; i++) {
         printf("Digite a linha %d de %d (use '.' para espaco vazio e 'R' para rainha): ", i + 1, N);
         scanf("%s", line);
 
         for (int j = 0; j < N; j++) {
             if (line[j] == 'R') {
-                board[j] = i;  // Coloca a rainha na coluna correta
+                board[j] = i;
             }
         }
     }
@@ -47,7 +47,7 @@ int calculate_conflicts(int board[N], int row, int col) {
 // Função para encontrar a melhor linha para uma rainha em uma determinada coluna
 int find_min_conflict_row(int board[N], int col) {
     int min_conflicts = N;
-    int best_row = board[col];  // Padrão: posição atual
+    int best_row = board[col];
 
     for (int row = 0; row < N; row++) {
         int conflicts = calculate_conflicts(board, row, col);
@@ -88,7 +88,7 @@ int solve_n_queens_min_conflicts(int board[N]) {
         // Mover a rainha para a posição com menos conflitos
         if (board[col] != best_row) {
             board[col] = best_row;
-            move_count++;  // Incrementa o contador de movimentos
+            move_count++;
         }
     }
 
@@ -111,20 +111,19 @@ void print_board(int board[N]) {
 }
 
 int main() {
-    srand(time(0));  // Semente para números aleatórios
+    srand(time(0));
     int board[N];
     int escolha;
 
-    // Permitir que o usuário escolha entre gerar um tabuleiro aleatório ou montar um manualmente
     printf("Escolha o modo de entrada do tabuleiro:\n");
     printf("1. Gerar um tabuleiro aleatorio\n");
     printf("2. Montar o tabuleiro manualmente\n");
     scanf("%d", &escolha);
 
     if (escolha == 1) {
-        generate_random_board(board);  // Gerar uma configuração inicial aleatória
+        generate_random_board(board);
     } else if (escolha == 2) {
-        read_user_board(board);  // Permitir que o usuário monte o tabuleiro
+        read_user_board(board);
     } else {
         printf("Escolha invalida.\n");
         return 1;
