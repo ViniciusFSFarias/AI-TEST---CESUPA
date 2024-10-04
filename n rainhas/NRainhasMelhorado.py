@@ -3,6 +3,7 @@ import time
 
 N = 8  # Número de rainhas e tamanho do tabuleiro
 MAX_STEPS = 1000  # Número máximo de passos para tentar encontrar uma solução
+MAX_ATTEMPTS = 10  # Número máximo de tentativas com reinicialização aleatória
 
 move_count = 0
 
@@ -85,14 +86,14 @@ def print_board(board):
         print()
     print()
 
-# Função com reinicialização aleatória se solução não for encontrada em um número de passos
-def solve_n_queens_with_restart(board, max_attempts=10):
-    for attempt in range(max_attempts):  # Tenta até 'max_attempts' reinicializações
+# Função com reinicialização aleatória se solução não for encontrada
+def solve_n_queens_with_restart():
+    for attempt in range(MAX_ATTEMPTS):
+        board = generate_random_board()  # Gera o tabuleiro inicial aleatório
         if solve_n_queens_min_conflicts(board):
-            return True  # Solução encontrada
+            return board  # Solução encontrada
         print(f"Tentativa {attempt + 1} falhou. Reinicializando o tabuleiro.")
-        board = generate_random_board()  # Gera uma nova configuração inicial
-    return False  # Não foi possível encontrar uma solução
+    return None  # Não foi possível encontrar uma solução
 
 # Função principal
 def main():
@@ -110,9 +111,10 @@ def main():
         return
 
     # Resolver o problema das N rainhas com reinicialização aleatória
-    if solve_n_queens_with_restart(board):
+    solution = solve_n_queens_with_restart()
+    if solution:
         print(f"Número de mudanças realizadas: {move_count}")
-        print_board(board)
+        print_board(solution)
     else:
         print("Não foi possível encontrar uma solução após várias tentativas.")
 
