@@ -102,9 +102,13 @@ def main():
 
     # Resolver o problema das N rainhas
     if solve_n_queens_min_conflicts(board):
+        print(f"Tabuleiro original:\n\n")
+        print_board(board)
         print(f"Número de mudanças realizadas: {move_count}")
         print_board(board)
     else:
+        print(f"Tabuleiro original:\n\n")
+        print_board(board)
         print("Não foi possível encontrar uma solução dentro do limite de passos.")
 
 if __name__ == "__main__":
