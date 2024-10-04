@@ -23,15 +23,24 @@ def print_board(board):
 
 # Definição das marcações do mapa de acordo com o tamanho
 def point_from_coords(text, size):
+    # Verifica se o texto tem o comprimento correto
+    if len(text) < 4:
+        raise ValueError("Movimento inválido: deve ter pelo menos 4 caracteres.")
+
     col_name_a = text[0].upper()
-    row_a = int(text[1])
-    col_name_b = text[2].upper()
-    row_b = int(text[3])
+    # Encontra a posição da primeira letra que não é um número
+    index = 1
+    while index < len(text) and text[index].isdigit():
+        index += 1
+    row_a = int(text[1:index])
+    
+    col_name_b = text[index].upper()
+    row_b = int(text[index + 1:])
 
     # Verifica se as colunas estão dentro do limite.
     if col_name_a not in COL_NAMES[:size] or col_name_b not in COL_NAMES[:size]:
         raise ValueError("Column name out of bounds.")
-    
+
     return Point(row_a, COL_NAMES.index(col_name_a) + 1), Point(row_b, COL_NAMES.index(col_name_b) + 1)
 
 # Função principal
